@@ -137,6 +137,7 @@ class BaseDetector(BaseModule, metaclass=ABCMeta):
                 img_meta[img_id]['batch_input_shape'] = tuple(img.size()[-2:])
 
         if num_augs == 1:
+            print("Running with a single augmentation")
             # proposals (List[List[Tensor]]): the outer list indicates
             # test-time augs (multiscale, flip, etc.) and the inner list
             # indicates images in a batch.
@@ -146,6 +147,7 @@ class BaseDetector(BaseModule, metaclass=ABCMeta):
                 kwargs['proposals'] = kwargs['proposals'][0]
             return self.simple_test(imgs[0], img_metas[0], **kwargs)
         else:
+            print("Running with multiple augmentations")
             assert imgs[0].size(0) == 1, 'aug test does not support ' \
                                          'inference with batch size ' \
                                          f'{imgs[0].size(0)}'
