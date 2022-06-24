@@ -67,6 +67,9 @@ class TwoStageDetector(BaseDetector):
         x = self.backbone(img)
 
         print("Type of backbone output: ", type(x))
+        print("Backbone outputs:")
+        for i in x:
+            print(i.shape)
 
         if self.with_neck:
             x = self.neck(x)
