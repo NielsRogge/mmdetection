@@ -1,7 +1,11 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import warnings
 
+import requests
+from PIL import Image
+
 import torch
+import torchvision.transforms as T
 
 from ..builder import DETECTORS, build_backbone, build_head, build_neck
 from .base import BaseDetector
@@ -64,12 +68,26 @@ class TwoStageDetector(BaseDetector):
 
     def extract_feat(self, img):
         """Directly extract features from the backbone+neck."""
+        # hack: use cats image
+        url = 'http://images.cocodataset.org/val2017/000000039769.jpg'
+        image = Image.open(requests.get(url, stream=True).raw)
+        
+        # standard PyTorch mean-std input image normalization
+        transform = T.Compose([
+            T.Resize(800),
+            T.ToTensor(),
+            T.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        ])
+        
+        img = transform(image).unsqueeze(0)
+        
         x = self.backbone(img)
 
         print("Type of backbone output: ", type(x))
         print("Backbone outputs:")
-        for i in x:
-            print(i.shape)
+        for idx, stage in enumerate(x):
+            print(stage.shape)
+            print(f"First values after stage {idx}: ", stage[0, :, :, :])
 
         if self.with_neck:
             x = self.neck(x)
