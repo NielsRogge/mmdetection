@@ -87,7 +87,7 @@ class TwoStageDetector(BaseDetector):
         print("Backbone outputs:")
         for idx, stage in enumerate(x):
             print(stage.shape)
-            print(f"First values after stage {idx}: ", stage[0, :, :, :])
+            print(f"First values after stage {idx}: ", stage[0, 0, :3, :3])
 
         if self.with_neck:
             x = self.neck(x)
