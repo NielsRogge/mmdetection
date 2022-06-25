@@ -91,6 +91,11 @@ class TwoStageDetector(BaseDetector):
 
         if self.with_neck:
             x = self.neck(x)
+
+        for idx, stage in enumerate(x):
+            print(stage.shape)
+            print(f"First values after neck {idx}: ", stage[0, 0, :3, :3])
+        
         return x
 
     def forward_dummy(self, img):
