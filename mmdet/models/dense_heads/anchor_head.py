@@ -65,6 +65,9 @@ class AnchorHead(BaseDenseHead, BBoxTestMixin):
         self.num_classes = num_classes
         self.feat_channels = feat_channels
         self.use_sigmoid_cls = loss_cls.get('use_sigmoid', False)
+        
+        print("Number of classes of RPN head:", num_classes)
+
         if self.use_sigmoid_cls:
             self.cls_out_channels = num_classes
         else:
