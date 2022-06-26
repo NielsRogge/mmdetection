@@ -128,7 +128,9 @@ class BBoxTestMixin(object):
         """
         rpn_outs = self(x)
 
-        print("Img metas:", img_metas[0].keys())
+        print("Img metas:")
+        for k,v in img_metas[0].items():
+            print(k,v)
 
         proposal_list = self.get_bboxes(*rpn_outs, img_metas=img_metas)
         return proposal_list
