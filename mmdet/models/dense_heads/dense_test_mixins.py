@@ -127,6 +127,12 @@ class BBoxTestMixin(object):
                 where 5 represent (tl_x, tl_y, br_x, br_y, score).
         """
         rpn_outs = self(x)
+
+        print("Output of RPN:")
+        print(len(rpn_outs))
+        print(rpn_outs[0][0].shape)
+        print(rpn_outs[0][0][0,0,:3,:3])
+
         proposal_list = self.get_bboxes(*rpn_outs, img_metas=img_metas)
         return proposal_list
 
