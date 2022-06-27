@@ -264,6 +264,9 @@ class StandardRoIHead(BaseRoIHead, BBoxTestMixin, MaskTestMixin):
             for i in range(len(det_bboxes))
         ]
 
+        print("Det_bboxes:", det_bboxes)
+        print("Det_labels:", det_labels)
+
         if not self.with_mask:
             return bbox_results
         else:
