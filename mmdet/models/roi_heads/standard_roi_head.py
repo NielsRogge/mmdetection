@@ -124,6 +124,11 @@ class StandardRoIHead(BaseRoIHead, BBoxTestMixin, MaskTestMixin):
             bbox_feats = self.shared_head(bbox_feats)
         cls_score, bbox_pred = self.bbox_head(bbox_feats)
 
+        print("cls_score:", cls_score.shape)
+        print("First values of cls_score:", cls_score[:3,:3])
+        print("bbox_pred:", bbox_pred.shape)
+        print("First values of bbox_pred:", bbox_pred[:3,:3])
+
         bbox_results = dict(
             cls_score=cls_score, bbox_pred=bbox_pred, bbox_feats=bbox_feats)
         return bbox_results
