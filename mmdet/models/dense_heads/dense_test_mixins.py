@@ -126,6 +126,10 @@ class BBoxTestMixin(object):
             list[Tensor]: Proposals of each image, each item has shape (n, 5),
                 where 5 represent (tl_x, tl_y, br_x, br_y, score).
         """
+        print("Image metas:")
+        for k,v in img_metas[0].items():
+            print(k,v.shape)
+        
         rpn_outs = self(x)
         proposal_list = self.get_bboxes(*rpn_outs, img_metas=img_metas)
         print("Proposal list:")
