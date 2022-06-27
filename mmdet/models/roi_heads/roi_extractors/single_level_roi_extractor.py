@@ -112,4 +112,8 @@ class SingleRoIExtractor(BaseRoIExtractor):
                 roi_feats += sum(
                     x.view(-1)[0]
                     for x in self.parameters()) * 0. + feats[i].sum() * 0.
+        
+        print("Roi feats:", roi_feats.shape)
+        print(roi_feats[0,0,:3,:3])
+        
         return roi_feats
