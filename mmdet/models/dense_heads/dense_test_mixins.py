@@ -127,12 +127,10 @@ class BBoxTestMixin(object):
                 where 5 represent (tl_x, tl_y, br_x, br_y, score).
         """
         rpn_outs = self(x)
-
-        print("Img metas:")
-        for k,v in img_metas[0].items():
-            print(k,v)
-
         proposal_list = self.get_bboxes(*rpn_outs, img_metas=img_metas)
+        print("Proposal list:")
+        print(proposal_list[0].shape)
+        print(proposal_list[0][:3,:3])
         return proposal_list
 
     def aug_test_rpn(self, feats, img_metas):
