@@ -255,6 +255,10 @@ class StandardRoIHead(BaseRoIHead, BBoxTestMixin, MaskTestMixin):
         """
         assert self.with_bbox, 'Bbox head must be implemented.'
 
+        print("*** img metas before simple_test of RoI head ***")
+        for k,v in img_metas[0].items():
+            print(k,v)
+        
         det_bboxes, det_labels = self.simple_test_bboxes(
             x, img_metas, proposal_list, self.test_cfg, rescale=rescale)
 
