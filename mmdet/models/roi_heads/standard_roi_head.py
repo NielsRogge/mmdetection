@@ -196,6 +196,8 @@ class StandardRoIHead(BaseRoIHead, BBoxTestMixin, MaskTestMixin):
             assert bbox_feats is not None
             mask_feats = bbox_feats[pos_inds]
 
+        print("Mask_feats:", mask_feats[0,0,:3,:3])
+        
         mask_pred = self.mask_head(mask_feats)
 
         print("Mask pred:", mask_pred[0,0,:3,:3])
