@@ -197,6 +197,9 @@ class StandardRoIHead(BaseRoIHead, BBoxTestMixin, MaskTestMixin):
             mask_feats = bbox_feats[pos_inds]
 
         mask_pred = self.mask_head(mask_feats)
+
+        print("Mask pred:", mask_pred[0,0,:3,:3])
+
         mask_results = dict(mask_pred=mask_pred, mask_feats=mask_feats)
         return mask_results
 
