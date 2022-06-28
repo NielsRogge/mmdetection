@@ -128,8 +128,11 @@ class FCNMaskHead(BaseModule):
     def forward(self, x):
         for conv in self.convs:
             x = conv(x)
+
+        print("Hidden states after convs:", x[0,0,:3,:3])
         if self.upsample is not None:
             x = self.upsample(x)
+            print("Hidden states after upsample:", x[0,0,:3,:3])
             if self.upsample_method == 'deconv':
                 x = self.relu(x)
         mask_pred = self.conv_logits(x)
