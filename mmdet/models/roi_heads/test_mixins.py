@@ -235,6 +235,8 @@ class MaskTestMixin:
 
         scale_factors = tuple(meta['scale_factor'] for meta in img_metas)
 
+        print("Scale factors inside simple_test_mask: ", scale_factors)
+
         if isinstance(scale_factors[0], float):
             print("we're here")
             warnings.warn(
