@@ -230,9 +230,13 @@ class MaskTestMixin:
         """Simple test for mask head without augmentation."""
         # image shapes of images in the batch
         ori_shapes = tuple(meta['ori_shape'] for meta in img_metas)
+
+        print("Scale factors inside simple_test_mask: ", img_metas[0]['scale_factor'])
+
         scale_factors = tuple(meta['scale_factor'] for meta in img_metas)
 
         if isinstance(scale_factors[0], float):
+            print("we're here")
             warnings.warn(
                 'Scale factor in img_metas should be a '
                 'ndarray with shape (4,) '
