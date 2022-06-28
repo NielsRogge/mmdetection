@@ -247,6 +247,7 @@ class MaskTestMixin:
         else:
             # if det_bboxes is rescaled to the original image size, we need to
             # rescale it back to the testing scale to obtain RoIs.
+            print("Scale factors:", scale_factors)
             if rescale:
                 scale_factors = [
                     torch.from_numpy(scale_factor).to(det_bboxes[0].device)
