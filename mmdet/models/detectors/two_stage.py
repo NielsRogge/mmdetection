@@ -126,9 +126,12 @@ class TwoStageDetector(BaseDetector):
         """
         print("Shape of img:", img.shape)
         print("Img metas:", img_metas)
-        print("Gt boxes:", gt_bboxes)
+        for box in gt_bboxes:
+            print(box.shape)
         print("Gt labels:", gt_labels)
-        print("Gt masks:", gt_masks)
+        for label in gt_labels;
+            print(label.shape)
+        # print("Gt masks:", gt_masks.shape)
         
         x = self.extract_feat(img)
 
