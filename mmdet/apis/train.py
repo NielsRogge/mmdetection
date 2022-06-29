@@ -157,7 +157,8 @@ def train_detector(model,
             print("Key:", k)
             print("Type of data:", type(v.data))
             print(v.size)
-            print(v.data[0][0].shape)
+            if isinstance(v.data[0][0], torch.Tensor):
+                print(v.data[0][0].shape)
     
     # put model on gpus
     if distributed:
