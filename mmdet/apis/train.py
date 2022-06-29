@@ -154,7 +154,10 @@ def train_detector(model,
     batch = next(iter(data_loaders[0]))
     for k,v in batch.items():
         if isinstance(v, DataContainer):
-            print(k, v.data.shape)
+            if isinstance(v, torch.Tensor):
+                print(k, v.data.shape)
+            else:
+                print(k, v)
         else:
             print(k,v)
     
