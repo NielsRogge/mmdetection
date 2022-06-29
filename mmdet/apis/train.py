@@ -148,6 +148,11 @@ def train_detector(model,
 
     data_loaders = [build_dataloader(ds, **train_loader_cfg) for ds in dataset]
 
+    # get first batch
+    print("First batch of data:")
+    batch = next(iter(data_loaders[0]))
+    print(batch.items())
+    
     # put model on gpus
     if distributed:
         find_unused_parameters = cfg.get('find_unused_parameters', False)
@@ -241,4 +246,6 @@ def train_detector(model,
         runner.resume(cfg.resume_from)
     elif cfg.load_from:
         runner.load_checkpoint(cfg.load_from)
+    
+    print("Arrived at runner.run")
     runner.run(data_loaders, cfg.workflow)
