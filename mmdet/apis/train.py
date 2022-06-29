@@ -153,10 +153,11 @@ def train_detector(model,
     print("First batch of data:")
     batch = next(iter(data_loaders[0]))
     for k,v in batch.items():
-        print("Key:", k)
         if isinstance(v, DataContainer):
+            print("Key:", k)
+            print("Type of data:", type(v.data))
             print(v.size)
-            print(v.data[0].shape)
+            print(v.data[0][0].shape)
     
     # put model on gpus
     if distributed:
