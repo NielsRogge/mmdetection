@@ -156,6 +156,7 @@ def train_detector(model,
         print("Key:", k)
         if isinstance(v, DataContainer):
             print(v.size)
+            print(v.data[0].shape)
     
     # put model on gpus
     if distributed:
