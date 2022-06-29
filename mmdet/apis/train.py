@@ -151,7 +151,11 @@ def train_detector(model,
     # get first batch
     print("First batch of data:")
     batch = next(iter(data_loaders[0]))
-    print(batch.items())
+    for k,v in batch.items():
+        if isinstance(v, torch.Tensor):
+            print(k, v.shape)
+        else:
+            print(k,v)
     
     # put model on gpus
     if distributed:
