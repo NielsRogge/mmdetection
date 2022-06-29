@@ -8,6 +8,7 @@ import torch.distributed as dist
 from mmcv.runner import (DistSamplerSeedHook, EpochBasedRunner,
                          Fp16OptimizerHook, OptimizerHook, build_runner,
                          get_dist_info)
+from mmcv.parallel import DataContainer
 
 from mmdet.core import DistEvalHook, EvalHook, build_optimizer
 from mmdet.datasets import (build_dataloader, build_dataset,
@@ -152,8 +153,8 @@ def train_detector(model,
     print("First batch of data:")
     batch = next(iter(data_loaders[0]))
     for k,v in batch.items():
-        if isinstance(v, torch.Tensor):
-            print(k, v.shape)
+        if isinstance(v, DataContainer):
+            print(k, v.data.shape)
         else:
             print(k,v)
     
@@ -252,4 +253,4 @@ def train_detector(model,
         runner.load_checkpoint(cfg.load_from)
     
     print("Arrived at runner.run")
-    runner.run(data_loaders, cfg.workflow)
+    # runner.run(data_loaders, cfg.workflow)
