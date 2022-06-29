@@ -159,6 +159,8 @@ class TwoStageDetector(BaseDetector):
                                                  **kwargs)
         losses.update(roi_losses)
 
+        import pdb; pdb.set_trace()
+
         return losses
 
     async def async_simple_test(self,
