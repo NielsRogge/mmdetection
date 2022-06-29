@@ -126,6 +126,7 @@ class FCNMaskHead(BaseModule):
 
     @auto_fp16()
     def forward(self, x):
+        print("Hidden states before convs:", x[0,0,:3,:3])
         for conv in self.convs:
             x = conv(x)
 
