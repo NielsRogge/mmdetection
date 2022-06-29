@@ -129,7 +129,7 @@ class TwoStageDetector(BaseDetector):
         for box in gt_bboxes:
             print(box.shape)
         print("Gt labels:", gt_labels)
-        for label in gt_labels;
+        for label in gt_labels:
             print(label.shape)
         # print("Gt masks:", gt_masks.shape)
         
