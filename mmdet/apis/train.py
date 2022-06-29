@@ -154,7 +154,7 @@ def train_detector(model,
     batch = next(iter(data_loaders[0]))
     for k,v in batch.items():
         if isinstance(v, DataContainer):
-            if isinstance(v, torch.Tensor):
+            if isinstance(v.data, torch.Tensor):
                 print(k, v.data.shape)
             else:
                 print(k, v)
@@ -254,6 +254,8 @@ def train_detector(model,
         runner.resume(cfg.resume_from)
     elif cfg.load_from:
         runner.load_checkpoint(cfg.load_from)
+    
+    # losses = model.forward_train(data_loaders[0], runner)
     
     print("Arrived at runner.run")
     # runner.run(data_loaders, cfg.workflow)
