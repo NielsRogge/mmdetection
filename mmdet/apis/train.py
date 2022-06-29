@@ -257,4 +257,4 @@ def train_detector(model,
     # losses = model.forward_train(data_loaders[0], runner)
     
     print("Arrived at runner.run")
-    # runner.run(data_loaders, cfg.workflow)
+    runner.run(data_loaders, cfg.workflow)
