@@ -106,6 +106,14 @@ class StandardRoIHead(BaseRoIHead, BBoxTestMixin, MaskTestMixin):
                                                     img_metas)
             losses.update(bbox_results['loss_bbox'])
 
+            print("Cls_score:", bbox_results["cls_score"].shape)
+            print("Cls_score first values:", bbox_results["cls_score"][:3,:3])
+            print("Bbox_pred shape:", bbox_results["bbox_pred"].shape)
+            print("Bbox_pred first values:", bbox_results["bbox_pred"][:3,:3])
+            print("Bbox feats shape:", bbox_results["bbox_feats"].shape)
+            print("Bbox feats first values:", bbox_results["bbox_feats"][0,0,:3,:3])
+            print("Bbox loss:", bbox_results["loss_bbox"])
+
         # mask head forward and loss
         if self.with_mask:
             mask_results = self._mask_forward_train(x, sampling_results,
