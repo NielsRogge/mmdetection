@@ -3,6 +3,8 @@ import warnings
 
 import torch
 
+import torchvision.transforms as T
+
 from ..builder import DETECTORS, build_backbone, build_head, build_neck
 from .base import BaseDetector
 
@@ -124,6 +126,23 @@ class TwoStageDetector(BaseDetector):
         Returns:
             dict[str, Tensor]: a dictionary of loss components
         """
+        # hack: use cats images
+        from PIL import Image
+        import requests
+
+        url = 'http://images.cocodataset.org/val2017/000000039769.jpg'
+        image = Image.open(requests.get(url, stream=True).raw)
+
+        transforms = T.Compose([
+            T.Resize(800,)
+            T.ToTensor(),
+            T.Normalize,
+        ])
+        img1 = transforms(image)
+        img2 = transforms(image)
+
+        img = torch.stack([img1, img2], dim=0)
+        
         print("Shape of img:", img.shape)
         print("Img metas:", img_metas)
         for box in gt_bboxes:
