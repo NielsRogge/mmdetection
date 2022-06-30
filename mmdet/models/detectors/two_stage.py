@@ -143,14 +143,11 @@ class TwoStageDetector(BaseDetector):
 
         img = torch.stack([img1, img2], dim=0).cuda()
         
-        print("Shape of img:", img.shape)
-        print("Img metas:", img_metas)
-        for box in gt_bboxes:
-            print(box.shape)
-        print("Gt labels:", gt_labels)
-        for label in gt_labels:
-            print(label.shape)
-        # print("Gt masks:", gt_masks.shape)
+        print("First values of img:", img[0,0,:3,:3])
+        print("Img_metas:", img_metas)
+        print("Gt_bboxes:", gt_bboxes)
+        print("Gt_labels:", gt_labels)
+        print("Gt_bboxes_ignore:", gt_bboxes_ignore)
         
         x = self.extract_feat(img)
 
