@@ -187,6 +187,7 @@ class TwoStageDetector(BaseDetector):
         print("Gt_bboxes:", gt_bboxes)
         print("Gt_labels:", gt_labels)
         print("Gt_bboxes_ignore:", gt_bboxes_ignore)
+        print("Gt_masks:", gt_masks)
         
         x = self.extract_feat(img)
 
