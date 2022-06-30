@@ -4,6 +4,7 @@ import warnings
 import torch
 
 import torchvision.transforms as T
+import numpy as np
 
 from ..builder import DETECTORS, build_backbone, build_head, build_neck
 from .base import BaseDetector
@@ -126,7 +127,7 @@ class TwoStageDetector(BaseDetector):
         Returns:
             dict[str, Tensor]: a dictionary of loss components
         """
-        # hack: use cats images
+        # hack: fix the img, img_metas, gt_bboxes and gt_labels
         from PIL import Image
         import requests
 
@@ -142,6 +143,43 @@ class TwoStageDetector(BaseDetector):
         img2 = transforms(image)
 
         img = torch.stack([img1, img2], dim=0).cuda()
+
+        img_metas = [
+            {
+                "filename": "./drive/MyDrive/ConvNeXT MaskRCNN/COCO/val2017/000000039769.jpg",
+                "ori_filename": "000000039769.jpg",
+                "ori_shape": (480, 640, 3),
+                "img_shape": (480, 640, 3),
+                "pad_shape": (480, 640, 3),
+                "scale_factor": np.array([1.0, 1.0, 1.0, 1.0], dtype=np.float32),
+                "flip": False,
+                "flip_direction": None,
+                "img_norm_cfg": {
+                    "mean": np.array([123.675, 116.28, 103.53], dtype=np.float32),
+                    "std": np.array([58.395, 57.12, 57.375], dtype=np.float32),
+                    "to_rgb": True,
+                },
+            },
+            {
+                "filename": "./drive/MyDrive/ConvNeXT MaskRCNN/COCO/val2017/000000039769.jpg",
+                "ori_filename": "000000039769.jpg",
+                "ori_shape": (480, 640, 3),
+                "img_shape": (704, 939, 3),
+                "pad_shape": (704, 960, 3),
+                "scale_factor": np.array([1.4671875, 1.4666667, 1.4671875, 1.4666667], dtype=np.float32),
+                "flip": False,
+                "flip_direction": None,
+                "img_norm_cfg": {
+                    "mean": np.array([123.675, 116.28, 103.53], dtype=np.float32),
+                    "std": np.array([58.395, 57.12, 57.375], dtype=np.float32),
+                    "to_rgb": True,
+                },
+            },
+        ]
+        gt_bboxes = [torch.tensor([[510.2580, 122.0073, 569.5012, 285.0160],
+        [ 64.1942, 113.7733, 268.2882, 182.9267]], device='cuda:0'), torch.tensor([[322.1520,  95.4840, 368.5320, 223.0560],
+        [557.9641,  89.0400, 717.7440, 143.1600]], device='cuda:0')]
+        gt_labels = [torch.tensor([65, 65], device='cuda:0'), torch.tensor([65, 65], device='cuda:0')]
         
         print("First values of img:", img[0,0,:3,:3])
         print("Img_metas:", img_metas)
@@ -150,6 +188,8 @@ class TwoStageDetector(BaseDetector):
         print("Gt_bboxes_ignore:", gt_bboxes_ignore)
         
         x = self.extract_feat(img)
+
+        print("Features:", x[-1][0,0,:3,:3])
 
         losses = dict()
 
