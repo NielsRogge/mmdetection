@@ -134,7 +134,7 @@ class TwoStageDetector(BaseDetector):
         image = Image.open(requests.get(url, stream=True).raw)
 
         transforms = T.Compose([
-            T.Resize(800,)
+            T.Resize(800),
             T.ToTensor(),
             T.Normalize,
         ])
