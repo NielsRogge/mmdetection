@@ -172,13 +172,14 @@ class TwoStageDetector(BaseDetector):
         else:
             proposal_list = proposals
 
+        print("Reached RPN losses + proposal list")
+        import pdb; pdb.set_trace()
+        
         roi_losses = self.roi_head.forward_train(x, img_metas, proposal_list,
                                                  gt_bboxes, gt_labels,
                                                  gt_bboxes_ignore, gt_masks,
                                                  **kwargs)
         losses.update(roi_losses)
-
-        import pdb; pdb.set_trace()
 
         return losses
 
