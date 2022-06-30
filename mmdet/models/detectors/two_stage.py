@@ -176,9 +176,10 @@ class TwoStageDetector(BaseDetector):
                 },
             },
         ]
-        gt_bboxes = [torch.tensor([[510.2580, 122.0073, 569.5012, 285.0160],
-        [ 64.1942, 113.7733, 268.2882, 182.9267]], device='cuda:0'), torch.tensor([[322.1520,  95.4840, 368.5320, 223.0560],
-        [557.9641,  89.0400, 717.7440, 143.1600]], device='cuda:0')]
+        gt_bboxes = [
+            torch.tensor([[252.8191, 29.9796, 301.3282, 163.3882], [0.0000, 23.2408, 54.6913, 79.8369]], device='cuda:0'),
+            torch.tensor([[348.0057, 109.9930, 402.2309, 259.2000], [623.7056, 102.4561, 810.5126, 165.7544]], device='cuda:0'),
+        ]
         gt_labels = [torch.tensor([65, 65], device='cuda:0'), torch.tensor([65, 65], device='cuda:0')]
         
         print("First values of img:", img[0,0,:3,:3])
