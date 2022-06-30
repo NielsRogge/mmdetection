@@ -329,10 +329,11 @@ class BaseDenseHead(BaseModule, metaclass=ABCMeta):
         """
         outs = self(x)
 
-        print("Rpn_outs:", outs[0][-1].shape)
+        print("Rpn_outs:", outs[0][-1][0,0,:3,:3])
 
-        print("Gt_bboxes:", gt_bboxes)
         print("Img_metas:", img_metas)
+        print("Gt_bboxes:", gt_bboxes)
+        print("Gt_labels:", gt_labels)
         print("gt_bboxes_ignore:", gt_bboxes_ignore)
 
         if gt_labels is None:
