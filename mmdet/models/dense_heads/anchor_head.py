@@ -444,6 +444,8 @@ class AnchorHead(BaseDenseHead, BBoxTestMixin):
             # decodes the already encoded coordinates to absolute format.
             anchors = anchors.reshape(-1, 4)
             bbox_pred = self.bbox_coder.decode(anchors, bbox_pred)
+        print("Bbox_pred:", bbox_pred)
+        print("Bbox_weights:", bbox_weights)
         loss_bbox = self.loss_bbox(
             bbox_pred,
             bbox_targets,
