@@ -141,7 +141,7 @@ class TwoStageDetector(BaseDetector):
         img1 = transforms(image)
         img2 = transforms(image)
 
-        img = torch.stack([img1, img2], dim=0)
+        img = torch.stack([img1, img2], dim=0).to(self.device)
         
         print("Shape of img:", img.shape)
         print("Img metas:", img_metas)
