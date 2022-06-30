@@ -430,10 +430,9 @@ class AnchorHead(BaseDenseHead, BBoxTestMixin):
         label_weights = label_weights.reshape(-1)
         cls_score = cls_score.permute(0, 2, 3,
                                       1).reshape(-1, self.cls_out_channels)
-        print("Cls_score:", cls_score)
-        print("Labels:", labels)
         loss_cls = self.loss_cls(
             cls_score, labels, label_weights, avg_factor=num_total_samples)
+        print("Loss_cls:", loss_cls)
         # regression loss
         bbox_targets = bbox_targets.reshape(-1, 4)
         bbox_weights = bbox_weights.reshape(-1, 4)
@@ -444,13 +443,12 @@ class AnchorHead(BaseDenseHead, BBoxTestMixin):
             # decodes the already encoded coordinates to absolute format.
             anchors = anchors.reshape(-1, 4)
             bbox_pred = self.bbox_coder.decode(anchors, bbox_pred)
-        print("Bbox_pred:", bbox_pred)
-        print("Bbox_weights:", bbox_weights)
         loss_bbox = self.loss_bbox(
             bbox_pred,
             bbox_targets,
             bbox_weights,
             avg_factor=num_total_samples)
+        print("Loss_bbox:", loss_bbox)
         return loss_cls, loss_bbox
 
     @force_fp32(apply_to=('cls_scores', 'bbox_preds'))
