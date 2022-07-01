@@ -17,6 +17,8 @@ import torchvision.transforms as T
 import requests
 from PIL import Image
 
+import numpy as np
+
 from mmdet import __version__
 from mmdet.apis import init_random_seed, set_random_seed, train_detector
 from mmdet.datasets import build_dataset
