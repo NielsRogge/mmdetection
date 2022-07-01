@@ -132,6 +132,12 @@ def main():
         test_cfg=cfg.get('test_cfg'))
     # model.init_weights()
 
+    # load weights
+    state_dict = torch.load("/content/drive/MyDrive/ConvNeXT MaskRCNN/Original checkpoints/mask_rcnn_convnext-t_p4_w7_fpn_fp16_ms-crop_3x_coco_20220426_154953-050731f4.pth",
+    map_location="cpu")['state_dict']
+    model.load_state_dict(state_dict)
+    model.eval()
+
     # create dummy data
     url = "http://images.cocodataset.org/val2017/000000039769.jpg"
     image = Image.open(requests.get(url, stream=True).raw)
