@@ -126,6 +126,8 @@ class TwoStageDetector(BaseDetector):
         """
         x = self.extract_feat(img)
 
+        print("Features from backbone + neck:", x[-1][0,0,:3,:3])
+
         losses = dict()
 
         # RPN forward and loss

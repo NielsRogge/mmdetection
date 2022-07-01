@@ -130,7 +130,7 @@ def main():
         cfg.model,
         train_cfg=cfg.get('train_cfg'),
         test_cfg=cfg.get('test_cfg'))
-    model.init_weights()
+    # model.init_weights()
 
     # create dummy data
     url = "http://images.cocodataset.org/val2017/000000039769.jpg"
