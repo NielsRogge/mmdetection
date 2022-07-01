@@ -180,6 +180,9 @@ class StandardRoIHead(BaseRoIHead, BBoxTestMixin, MaskTestMixin):
         mask_targets = self.mask_head.get_targets(sampling_results, gt_masks,
                                                   self.train_cfg)
         pos_labels = torch.cat([res.pos_gt_labels for res in sampling_results])
+        
+        print("Mask pred:", mask_results["mask_pred"][0,0,:3,:3])
+        
         loss_mask = self.mask_head.loss(mask_results['mask_pred'],
                                         mask_targets, pos_labels)
 
