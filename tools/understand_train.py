@@ -21,6 +21,7 @@ import numpy as np
 
 from mmdet import __version__
 from mmdet.apis import init_random_seed, set_random_seed, train_detector
+from mmdet.core.mask.structures import BitmapMasks
 from mmdet.datasets import build_dataset
 from mmdet.models import build_detector
 from mmdet.utils import (collect_env, get_device, get_root_logger,
@@ -185,7 +186,10 @@ def main():
         torch.tensor([[348.0057, 109.9930, 402.2309, 259.2000], [623.7056, 102.4561, 810.5126, 165.7544]]),
     ]
     labels["gt_bboxes_ignore"] = None
-    labels["gt_masks"] = [torch.randn(2, 608, 832), torch.randn(2, 640, 864)]
+    masks = np.random.rand(2, 480, 640)
+    h = 480
+    w = 640
+    labels["gt_masks"] = [BitmapMasks(masks, h, w), BitmapMasks(masks, h, w)]
     
     # do a single forward_train forward pass with dummy data
     losses = model.forward_train(img,
