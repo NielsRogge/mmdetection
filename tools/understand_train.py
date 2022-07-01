@@ -144,23 +144,57 @@ def main():
     img2 = transforms(image)
 
     img = torch.stack([img1, img2], dim=0)
-    img_metas = [{}]
+    img_metas = [
+        {
+            "filename": "./drive/MyDrive/ConvNeXT MaskRCNN/COCO/val2017/000000039769.jpg",
+            "ori_filename": "000000039769.jpg",
+            "ori_shape": (480, 640, 3),
+            "img_shape": (480, 640, 3),
+            "pad_shape": (480, 640, 3),
+            "scale_factor": np.array([1.0, 1.0, 1.0, 1.0], dtype=np.float32),
+            "flip": False,
+            "flip_direction": None,
+            "img_norm_cfg": {
+                "mean": np.array([123.675, 116.28, 103.53], dtype=np.float32),
+                "std": np.array([58.395, 57.12, 57.375], dtype=np.float32),
+                "to_rgb": True,
+            },
+        },
+        {
+            "filename": "./drive/MyDrive/ConvNeXT MaskRCNN/COCO/val2017/000000039769.jpg",
+            "ori_filename": "000000039769.jpg",
+            "ori_shape": (480, 640, 3),
+            "img_shape": (704, 939, 3),
+            "pad_shape": (704, 960, 3),
+            "scale_factor": np.array([1.4671875, 1.4666667, 1.4671875, 1.4666667], dtype=np.float32),
+            "flip": False,
+            "flip_direction": None,
+            "img_norm_cfg": {
+                "mean": np.array([123.675, 116.28, 103.53], dtype=np.float32),
+                "std": np.array([58.395, 57.12, 57.375], dtype=np.float32),
+                "to_rgb": True,
+            },
+        },
+    ]
     labels = dict()
-    gt_labels = [torch.tensor([65, 65]), torch.tensor([65, 65])]
-    gt_bboxes = [
+    labels["gt_labels"] = [torch.tensor([65, 65]), torch.tensor([65, 65])]
+    labels["gt_bboxes"] = [
         torch.tensor([[252.8191, 29.9796, 301.3282, 163.3882], [0.0000, 23.2408, 54.6913, 79.8369]]),
         torch.tensor([[348.0057, 109.9930, 402.2309, 259.2000], [623.7056, 102.4561, 810.5126, 165.7544]]),
     ]
-    gt_masks = [torch.randn(2, 608, 832), torch.randn(2, 640, 864)]
+    labels["gt_bboxes_ignore"] = None
+    labels["gt_masks"] = [torch.randn(2, 608, 832), torch.randn(2, 640, 864)]
     
     # do a single forward_train forward pass with dummy data
     losses = model.forward_train(img,
                       img_metas,
-                      gt_bboxes,
-                      gt_labels,
+                      gt_bboxes=labels["gt_bboxes"],
+                      gt_labels=labels["gt_labels"],
                       gt_bboxes_ignore=None,
-                      gt_masks=gt_masks,
+                      gt_masks=labels["gt_masks"],
                       proposals=None)
+
+    print("Losses:", losses)
 
 
 if __name__ == '__main__':
