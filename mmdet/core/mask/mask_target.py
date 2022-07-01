@@ -102,7 +102,6 @@ def mask_target_single(pos_proposals, pos_assigned_gt_inds, gt_masks, cfg):
         >>>     pos_proposals, pos_assigned_gt_inds, gt_masks, cfg)
         >>> assert mask_targets.shape == (5,) + cfg['mask_size']
     """
-    print("Shape of gt_masks:", gt_masks.shape)
     device = pos_proposals.device
     mask_size = _pair(cfg.mask_size)
     binarize = not cfg.get('soft_mask_target', False)
