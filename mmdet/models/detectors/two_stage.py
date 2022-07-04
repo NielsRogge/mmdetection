@@ -152,6 +152,7 @@ class TwoStageDetector(BaseDetector):
                                                  gt_bboxes_ignore, gt_masks,
                                                  **kwargs)
         losses.update(roi_losses)
+        print("ROI losses:", roi_losses)
 
         return losses
 
