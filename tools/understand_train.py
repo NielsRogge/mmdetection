@@ -197,6 +197,23 @@ def main():
     w = 640
     labels["gt_masks"] = [BitmapMasks(masks, h, w), BitmapMasks(masks, h, w)]
     
+    # START: alternative (using example from huggingface_hub)
+    from huggingface_hub import hf_hub_download
+    
+    hf_hub_download(repo_id="nielsr/init-files", filename="pixel_values.pt")
+    img = torch.load("pixel_values.pt").unsqueeze(0)
+
+    labels = dict()
+    hf_hub_download(repo_id="nielsr/init-files", filename="boxes.pt")
+    labels["gt_bboxes"] = torch.load("boxes.pt")
+    hf_hub_download(repo_id="nielsr/init-files", filename="labels.pt")
+    labels["gt_labels"] = torch.load("labels.pt")
+    hf_hub_download(repo_id="nielsr/init-files", filename="masks.pt")
+    labels["gt_masks"] = torch.load("masks.pt")
+    img_metas = [{'pad_shape':img.shape[::-1], 'img_shape':img.shape[::-1]}]
+
+    # END: alternative
+    
     # do a single forward_train forward pass with dummy data
     losses = model.forward_train(img,
                       img_metas,
