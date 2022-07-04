@@ -211,7 +211,7 @@ def main():
     local_path = hf_hub_download(repo_id="nielsr/init-files", filename="masks.pt")
     masks = torch.load(local_path)
     h, w = masks.shape[-2:]
-    labels["gt_masks"] = [BitmapMasks(masks, h, w)]
+    labels["gt_masks"] = [BitmapMasks(masks.numpy(), h, w)]
     img_metas = [{'pad_shape':img.shape[::-1], 'img_shape':img.shape[::-1]}]
 
     # END: alternative
