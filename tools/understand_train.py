@@ -205,11 +205,11 @@ def main():
 
     labels = dict()
     local_path = hf_hub_download(repo_id="nielsr/init-files", filename="boxes.pt")
-    labels["gt_bboxes"] = torch.load(local_path)
+    labels["gt_bboxes"] = [torch.load(local_path)]
     local_path = hf_hub_download(repo_id="nielsr/init-files", filename="labels.pt")
-    labels["gt_labels"] = torch.load(local_path)
+    labels["gt_labels"] = [torch.load(local_path)]
     local_path = hf_hub_download(repo_id="nielsr/init-files", filename="masks.pt")
-    labels["gt_masks"] = torch.load(local_path)
+    labels["gt_masks"] = [torch.load(local_path)]
     img_metas = [{'pad_shape':img.shape[::-1], 'img_shape':img.shape[::-1]}]
 
     # END: alternative
