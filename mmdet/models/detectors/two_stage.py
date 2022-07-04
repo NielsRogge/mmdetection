@@ -124,6 +124,8 @@ class TwoStageDetector(BaseDetector):
         Returns:
             dict[str, Tensor]: a dictionary of loss components
         """
+        print("Shape of images:", img.shape)
+        
         x = self.extract_feat(img)
 
         losses = dict()
