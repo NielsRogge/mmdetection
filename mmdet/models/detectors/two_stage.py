@@ -143,6 +143,7 @@ class TwoStageDetector(BaseDetector):
                 proposal_cfg=proposal_cfg,
                 **kwargs)
             losses.update(rpn_losses)
+            print("RPN losses:", rpn_losses)
         else:
             proposal_list = proposals
 
