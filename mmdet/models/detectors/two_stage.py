@@ -3,6 +3,8 @@ import warnings
 
 import torch
 
+import numpy as np
+
 from ..builder import DETECTORS, build_backbone, build_head, build_neck
 from .base import BaseDetector
 
@@ -129,6 +131,8 @@ class TwoStageDetector(BaseDetector):
         print("Gt_bboxes:", gt_bboxes)
         print("Gt_labels:", gt_labels)
         print("Gt_masks:", gt_masks)
+        print(gt_masks[0].masks)
+        print(np.nonzero(gt_masks[0].masks))
         
         x = self.extract_feat(img)
 
