@@ -126,6 +126,7 @@ class CustomDataset(Dataset):
             self._set_group_flag()
 
         # processing pipeline
+        print("Processing pipeline:", pipeline)
         self.pipeline = Compose(pipeline)
 
     def __len__(self):
@@ -238,6 +239,7 @@ class CustomDataset(Dataset):
         if self.proposals is not None:
             results['proposals'] = self.proposals[idx]
         self.pre_pipeline(results)
+        print("Results:", results)
         return self.pipeline(results)
 
     def prepare_test_img(self, idx):
