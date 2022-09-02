@@ -575,6 +575,9 @@ class BBoxHead(BaseModule):
             offsets = (labels * max_size + 1).unsqueeze(2)
             bboxes_for_nms = bboxes + offsets
 
+            print("Shape of bboxes_for_nms before NMS:", bboxes_for_nms.shape)
+            print("Shape of scores before NMS:", scores.unsqueeze(2).shape)
+
             batch_dets, labels = add_dummy_nms_for_onnx(
                 bboxes_for_nms,
                 scores.unsqueeze(2),
@@ -584,6 +587,10 @@ class BBoxHead(BaseModule):
                 pre_top_k=nms_pre,
                 after_top_k=cfg.max_per_img,
                 labels=labels)
+
+
+            print("Shape of batch_dets after NMS:", batch_dets.shape)
+            print("Shape of labels after NMS:", labels.shape)
             # Offset the bboxes back after dummy nms.
             offsets = (labels * max_size + 1).unsqueeze(2)
             # Indexing + inplace operation fails with dynamic shape in ONNX
