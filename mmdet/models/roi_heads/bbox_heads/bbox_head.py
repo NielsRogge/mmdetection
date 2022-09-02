@@ -590,6 +590,9 @@ class BBoxHead(BaseModule):
 
 
             print("Shape of batch_dets after NMS:", batch_dets.shape)
+            print("Printing the first 30 detections:")
+            for box in batch_dets[0][:30]:
+                print(box)
             print("Shape of labels after NMS:", labels.shape)
             # Offset the bboxes back after dummy nms.
             offsets = (labels * max_size + 1).unsqueeze(2)
