@@ -108,7 +108,29 @@ class TwoStageDetector(BaseDetector):
             tuple[Tensor]: Multi-level features that may have
             different resolutions.
         """
+        print("Inserting cats image...")
+        from PIL import Image
+        import requests
+        from torchvision import transforms
+
+        url = 'http://images.cocodataset.org/val2017/000000039769.jpg'
+        image = Image.open(requests.get(url, stream=True).raw)
+
+        transform = transforms.Compose([
+            transforms.Resize((224,224)),
+            transforms.ToTensor(),
+            transforms.Normalize(
+                mean=[0.485, 0.456, 0.406],
+                std=[0.229, 0.224, 0.225]
+            )
+        ])
+
+        batch_inputs = transform(image).unsqueeze(0)
+
         x = self.backbone(batch_inputs)
+        print("Backbone features:")
+        for i in x:
+            print(i.shape)
         if self.with_neck:
             x = self.neck(x)
         return x
