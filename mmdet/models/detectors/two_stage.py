@@ -256,10 +256,13 @@ class TwoStageDetector(BaseDetector):
         assert self.with_bbox, 'Bbox head must be implemented.'
         x = self.extract_feat(batch_inputs)
 
+        print("Predicting with RPN...")
+
         # If there are no pre-defined proposals, use RPN to get proposals
         if batch_data_samples[0].get('proposals', None) is None:
             rpn_results_list = self.rpn_head.predict(
                 x, batch_data_samples, rescale=False)
+            print("Length of rpn_results_list", len(rpn_results_list))
         else:
             rpn_results_list = [
                 data_sample.proposals for data_sample in batch_data_samples
