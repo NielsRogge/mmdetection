@@ -472,7 +472,6 @@ class Beit(BaseModule):
                  img_size=[224, 224],
                  patch_size=16,
                  in_chans=3,
-                 num_classes=5,
                  embed_dim=768,
                  depth=12,
                  num_heads=12,
@@ -495,7 +494,6 @@ class Beit(BaseModule):
         super().__init__(init_cfg=init_cfg)
 
         norm_layer = norm_layer or partial(nn.LayerNorm, eps=1e-6)
-        self.num_classes = num_classes
         self.num_features = self.embed_dim = embed_dim  # num_features for consistency with other models
         self.use_checkpoint = use_checkpoint
 
