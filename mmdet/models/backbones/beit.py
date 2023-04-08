@@ -489,7 +489,7 @@ class Beit(BaseModule):
                  use_rel_pos_bias=False,
                  use_shared_rel_pos_bias=False,
                  use_checkpoint=True,
-                 out_features=None,
+                 out_features=["layer3", "layer5", "layer7", "layer11"],
                  init_cfg=None,
                  ):
         super().__init__(init_cfg=init_cfg)
