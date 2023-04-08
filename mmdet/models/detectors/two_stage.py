@@ -125,7 +125,7 @@ class TwoStageDetector(BaseDetector):
             )
         ])
 
-        batch_inputs = transform(image).unsqueeze(0)
+        batch_inputs = transform(image).unsqueeze(0).to(batch_inputs.device)
 
         x = self.backbone(batch_inputs)
         print("Backbone features:")
