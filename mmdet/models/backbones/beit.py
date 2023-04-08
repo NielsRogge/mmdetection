@@ -10,6 +10,8 @@ import torch.nn.functional as F
 import torch.utils.checkpoint as checkpoint
 import warnings
 
+from mmengine.model import BaseModule
+
 from mmdet.registry import MODELS
 
 
@@ -462,7 +464,7 @@ class RelativePositionBias(nn.Module):
 
 
 @MODELS.register_module()
-class Beit(nn.Module):
+class Beit(BaseModule):
     """ Vision Transformer with support for patch or hybrid CNN input stage
     """
 
