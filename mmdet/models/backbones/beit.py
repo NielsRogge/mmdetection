@@ -487,11 +487,10 @@ class Beit(nn.Module):
                  use_rel_pos_bias=False,
                  use_shared_rel_pos_bias=False,
                  use_checkpoint=True,
-                 pretrained=None,
                  out_features=None,
+                 init_cfg=None,
                  ):
-
-        super(Beit, self).__init__()
+        super().__init__(init_cfg=init_cfg)
 
         norm_layer = norm_layer or partial(nn.LayerNorm, eps=1e-6)
         self.num_classes = num_classes
