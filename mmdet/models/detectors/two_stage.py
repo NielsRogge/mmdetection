@@ -133,6 +133,11 @@ class TwoStageDetector(BaseDetector):
             print(i.shape)
         if self.with_neck:
             x = self.neck(x)
+
+        print("Neck features:")
+        for i in x:
+            print(i.shape)
+
         return x
 
     def _forward(self, batch_inputs: Tensor,
