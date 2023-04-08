@@ -129,14 +129,16 @@ class TwoStageDetector(BaseDetector):
 
         x = self.backbone(batch_inputs)
         print("Backbone features:")
-        for i in x:
+        for idx, i in enumerate(x):
             print(i.shape)
+            print(f"First values of stage {idx}", i[0,0,:3,:3])
         if self.with_neck:
             x = self.neck(x)
 
         print("Neck features:")
-        for i in x:
+        for idx, i in enumerate(x):
             print(i.shape)
+            print(f"First values of stage {idx}", i[0,0,:3,:3])
 
         return x
 
