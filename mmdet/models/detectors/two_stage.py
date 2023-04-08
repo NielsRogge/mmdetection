@@ -31,6 +31,7 @@ class TwoStageDetector(BaseDetector):
                  init_cfg: OptMultiConfig = None) -> None:
         super().__init__(
             data_preprocessor=data_preprocessor, init_cfg=init_cfg)
+        print("Backbone:", backbone)
         self.backbone = MODELS.build(backbone)
 
         if neck is not None:
