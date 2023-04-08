@@ -19,7 +19,6 @@ model = dict(
         init_cfg=dict(type='Pretrained', checkpoint=None)
     ),
     neck=dict(in_channels=[768, 768, 768, 768]),
-    num_classes=5,
 ),
 
 max_epochs = 12
