@@ -16,7 +16,7 @@ model = dict(
         mlp_ratio=4,
         qkv_bias=True,
         init_values=0.1,
-        # init_cfg=dict(type='Pretrained', checkpoint=pretrained)
+        init_cfg=dict(type='Pretrained', checkpoint=None)
     ),
     neck=dict(in_channels=[768, 768, 768, 768]))
 
