@@ -657,12 +657,16 @@ class Beit(BaseModule):
         for i in range(len(features)):
             features[i] = ops[i](features[i])
 
-        feat_out = {}
+        for i in features:
+            print("Feature map in backbone:", i.shape)
 
+        outs = []
+        # feat_out = {}
         for name, value in zip(self.out_features, features):
-            feat_out[name] = value
+            # feat_out[name] = value
+            outs.append(value)
 
-        return feat_out
+        return outs
 
     def forward(self, x):
         x = self.forward_features(x)
