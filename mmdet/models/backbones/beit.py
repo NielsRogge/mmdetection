@@ -472,7 +472,7 @@ class Beit(BaseModule):
                  img_size=[224, 224],
                  patch_size=16,
                  in_chans=3,
-                 num_classes=80,
+                 num_classes=5,
                  embed_dim=768,
                  depth=12,
                  num_heads=12,
