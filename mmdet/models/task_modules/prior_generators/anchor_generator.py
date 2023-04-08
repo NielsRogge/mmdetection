@@ -77,6 +77,13 @@ class AnchorGenerator:
                  centers: Optional[List[Tuple[float, float]]] = None,
                  center_offset: float = 0.,
                  use_box_type: bool = False) -> None:
+        
+        print("Anchor generator settings:")
+        print("Scales:", scales)
+        print("Strides:", strides)
+        print("Ratios:", ratios)
+        print("Offset:", center_offset)
+        
         # check center and center_offset
         if center_offset != 0:
             assert centers is None, 'center cannot be set when center_offset' \
