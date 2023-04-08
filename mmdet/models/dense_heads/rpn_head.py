@@ -176,6 +176,14 @@ class RPNHead(AnchorHead):
                 - bboxes (Tensor): Has a shape (num_instances, 4),
                   the last dimension 4 arrange as (x1, y1, x2, y2).
         """
+        print("Cls score:")
+        for i in cls_score_list:
+            print(i.shape)
+
+        print("bbox_pred:")
+        for i in bbox_pred_list:
+            print(i.shape)
+
         cfg = self.test_cfg if cfg is None else cfg
         cfg = copy.deepcopy(cfg)
         img_shape = img_meta['img_shape']

@@ -189,6 +189,9 @@ class AnchorHead(BaseDenseHead):
             featmap_sizes, device=device)
         anchor_list = [multi_level_anchors for _ in range(num_imgs)]
 
+        print("Number of anchors:", len(anchor_list))
+        print("Shape of first anchor:", anchor_list[0][0].shape)
+
         # for each image, we compute valid flags of multi level anchors
         valid_flag_list = []
         for img_id, img_meta in enumerate(batch_img_metas):
