@@ -170,6 +170,9 @@ class FPN(BaseModule):
         """
         assert len(inputs) == len(self.in_channels)
 
+        for feature_map in inputs:
+            print(feature_map.shape)
+
         # build laterals
         laterals = [
             lateral_conv(inputs[i + self.start_level])

@@ -85,7 +85,7 @@ def convert(src, dst=None):
 def main():
     parser = argparse.ArgumentParser(description='Convert model keys')
     parser.add_argument('src', help='src detectron model path')
-    parser.add_argument('dst', help='save path')
+    parser.add_argument('--dst', required=False, help='save path')
     args = parser.parse_args()
     convert(args.src, args.dst)
 
