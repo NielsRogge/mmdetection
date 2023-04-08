@@ -77,15 +77,17 @@ def convert(src, dst=None):
             dst_state_dict[name] = v
 
     mmdet_model = dict(state_dict=dst_state_dict, meta=dict())
-    # torch.save(mmdet_model, dst)
+
+    if dst is not None:
+        torch.save(mmdet_model, dst)
 
 
 def main():
     parser = argparse.ArgumentParser(description='Convert model keys')
     parser.add_argument('src', help='src detectron model path')
-    # parser.add_argument('dst', help='save path')
+    parser.add_argument('dst', help='save path')
     args = parser.parse_args()
-    convert(args.src)
+    convert(args.src, args.dst)
 
 
 if __name__ == '__main__':

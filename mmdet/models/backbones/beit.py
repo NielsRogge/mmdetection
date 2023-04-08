@@ -462,7 +462,7 @@ class RelativePositionBias(nn.Module):
 
 
 @MODELS.register_module()
-class BEiT(nn.Module):
+class Beit(nn.Module):
     """ Vision Transformer with support for patch or hybrid CNN input stage
     """
 
@@ -491,7 +491,7 @@ class BEiT(nn.Module):
                  out_features=None,
                  ):
 
-        super(BEiT, self).__init__()
+        super(Beit, self).__init__()
 
         norm_layer = norm_layer or partial(nn.LayerNorm, eps=1e-6)
         self.num_classes = num_classes
