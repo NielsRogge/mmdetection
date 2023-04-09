@@ -125,7 +125,7 @@ class TwoStageDetector(BaseDetector):
             )
         ])
 
-        # batch_inputs = transform(image).unsqueeze(0).to(batch_inputs.device)
+        batch_inputs = transform(image).unsqueeze(0).to(batch_inputs.device)
 
         x = self.backbone(batch_inputs)
         print("Backbone features:")
@@ -267,6 +267,11 @@ class TwoStageDetector(BaseDetector):
             rpn_results_list = [
                 data_sample.proposals for data_sample in batch_data_samples
             ]
+
+        print("RPN results")
+        for i in rpn_results_list:
+            print("RPN results", i.bboxes.shape)
+            print("RPN results", i.objectness_logits.shape)
 
         results_list = self.roi_head.predict(
             x, rpn_results_list, batch_data_samples, rescale=rescale)
