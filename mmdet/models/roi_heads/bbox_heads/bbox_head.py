@@ -545,7 +545,11 @@ class BBoxHead(BaseModule):
         if rescale and bboxes.size(0) > 0:
             assert img_meta.get('scale_factor') is not None
             scale_factor = [1 / s for s in img_meta['scale_factor']]
+            print("Rescaling boxes...")
+            print("Scale factor:", scale_factor)
+            print("Boxes before scaling:", bboxes[:3,:3])
             bboxes = scale_boxes(bboxes, scale_factor)
+            print("Boxes after scaling:", bboxes[:3,:3])
 
         # Get the inside tensor when `bboxes` is a box type
         bboxes = get_box_tensor(bboxes)
@@ -565,6 +569,7 @@ class BBoxHead(BaseModule):
                 rcnn_test_cfg.nms,
                 rcnn_test_cfg.max_per_img,
                 box_dim=box_dim)
+            print("Detected boxes after NMS: ", det_bboxes)
             results.bboxes = det_bboxes[:, :-1]
             results.scores = det_bboxes[:, -1]
             results.labels = det_labels
