@@ -569,7 +569,7 @@ class BBoxHead(BaseModule):
                 rcnn_test_cfg.nms,
                 rcnn_test_cfg.max_per_img,
                 box_dim=box_dim)
-            print("Detected boxes after NMS: ", det_bboxes)
+            print("Detected boxes after NMS: ", det_bboxes[:, :-1])
             results.bboxes = det_bboxes[:, :-1]
             results.scores = det_bboxes[:, -1]
             results.labels = det_labels
