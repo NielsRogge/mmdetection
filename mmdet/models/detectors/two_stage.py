@@ -283,8 +283,11 @@ class TwoStageDetector(BaseDetector):
         print("-----------ROI results------------")
         for i in results_list:
             print("Shape of boxes:", i.bboxes.shape)
+            print("First values:", i.bboxes[:3,:3])
             print("Shape of scores:", i.scores.shape)
+            print("First values:", i.scores[:3])
             print("Shape of labels:", i.labels.shape)
+            print("First values:", i.labels[:3])
 
         batch_data_samples = self.add_pred_to_datasample(
             batch_data_samples, results_list)
