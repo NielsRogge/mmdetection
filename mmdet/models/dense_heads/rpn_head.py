@@ -177,7 +177,7 @@ class RPNHead(AnchorHead):
                   the last dimension 4 arrange as (x1, y1, x2, y2).
         """
         print("Anchors (priors):")
-        for idx, i in mlvl_priors:
+        for idx, i in enumerate(mlvl_priors):
             print(f"Feature level {idx}", i.shape)
             print("First values:", i[0,:3])
 
