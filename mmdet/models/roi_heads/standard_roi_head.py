@@ -321,6 +321,9 @@ class StandardRoIHead(BaseRoIHead):
                   the last dimension 4 arrange as (x1, y1, x2, y2).
         """
         proposals = [res.bboxes for res in rpn_results_list]
+        print("Inside ROI head")
+        print("Proposals before box head:", proposals[0].shape)
+        print("First values of proposals:", proposals[0][:3,:3])
         rois = bbox2roi(proposals)
 
         if rois.shape[0] == 0:
@@ -333,6 +336,11 @@ class StandardRoIHead(BaseRoIHead):
                 score_per_cls=rcnn_test_cfg is None)
 
         bbox_results = self._bbox_forward(x, rois)
+
+        print("Bbox results:", bbox_results['cls_score'].shape)
+        print("First values of bbox results:", bbox_results['cls_score'][:3])
+        print("Bbox results:", bbox_results['bbox_pred'].shape)
+        print("First values of bbox results:", bbox_results['bbox_pred'][:3,:3])
 
         # split batch bbox prediction back to each image
         cls_scores = bbox_results['cls_score']
