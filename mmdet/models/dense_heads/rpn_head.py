@@ -179,10 +179,12 @@ class RPNHead(AnchorHead):
         print("Cls score:")
         for i in cls_score_list:
             print(i.shape)
+            print("First values:", i[0,0,:3,:3])
 
         print("bbox_pred:")
         for i in bbox_pred_list:
             print(i.shape)
+            print("First values:", i[0,0,:3,:3])
 
         cfg = self.test_cfg if cfg is None else cfg
         cfg = copy.deepcopy(cfg)
