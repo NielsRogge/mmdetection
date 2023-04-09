@@ -268,7 +268,7 @@ class TwoStageDetector(BaseDetector):
                 data_sample.proposals for data_sample in batch_data_samples
             ]
 
-        print("RPN results")
+        print("-----------RPN results------------")
         for i in rpn_results_list:
             print("RPN proposals", i.bboxes.shape)
             print("First values of proposals", i.bboxes[:3,:3])
@@ -280,9 +280,11 @@ class TwoStageDetector(BaseDetector):
         results_list = self.roi_head.predict(
             x, rpn_results_list, batch_data_samples, rescale=rescale)
         
-        print("ROI results")
+        print("-----------ROI results------------")
         for i in results_list:
-            print(i.keys())
+            print("Shape of boxes:", i.bboxes.shape)
+            print("Shape of scores:", i.scores.shape)
+            print("Shape of labels:", i.labels.shape)
 
         batch_data_samples = self.add_pred_to_datasample(
             batch_data_samples, results_list)
