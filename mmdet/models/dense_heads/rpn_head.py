@@ -276,6 +276,7 @@ class RPNHead(AnchorHead):
         """
         assert with_nms, '`with_nms` must be True in RPNHead'
         if rescale:
+            print("Rescaling proposals...")
             assert img_meta.get('scale_factor') is not None
             scale_factor = [1 / s for s in img_meta['scale_factor']]
             results.bboxes = scale_boxes(results.bboxes, scale_factor)
