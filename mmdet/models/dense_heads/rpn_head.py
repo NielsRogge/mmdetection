@@ -298,6 +298,8 @@ class RPNHead(AnchorHead):
             scale_factor = [1 / s for s in img_meta['scale_factor']]
             results.bboxes = scale_boxes(results.bboxes, scale_factor)
 
+        print("RPN configuration:", cfg)
+
         # filter small size bboxes
         if cfg.get('min_bbox_size', -1) >= 0:
             w, h = get_box_wh(results.bboxes)
@@ -325,4 +327,7 @@ class RPNHead(AnchorHead):
             results_.scores = results.scores.new_zeros(0)
             results_.labels = results.scores.new_zeros(0)
             results = results_
+        
+        print("Shape of final RPN boxes:", results.bboxes.shape)
+        
         return results
