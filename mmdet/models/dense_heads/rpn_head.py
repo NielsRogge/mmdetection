@@ -176,20 +176,15 @@ class RPNHead(AnchorHead):
                 - bboxes (Tensor): Has a shape (num_instances, 4),
                   the last dimension 4 arrange as (x1, y1, x2, y2).
         """
-        print("Anchors (priors):")
-        for idx, i in enumerate(mlvl_priors):
-            print(f"Feature level {idx}", i.shape)
-            print("First values:", i[0,:3])
+        print("RPN cls scores:")
+        for cls_score in cls_score_list:
+            print(cls_score.shape)
+            print(cls_score[0, :3, :3])
 
-        print("Cls score:")
-        for i in cls_score_list:
-            print(i.shape)
-            print("First values:", i[0,:3,:3])
-
-        print("bbox_pred:")
-        for i in bbox_pred_list:
-            print(i.shape)
-            print("First values:", i[0,:3,:3])
+        print("RPN bbox predictions:")
+        for bbox_pred in bbox_pred_list:
+            print(bbox_pred.shape)
+            print(bbox_pred[0, :3, :3])
 
         cfg = self.test_cfg if cfg is None else cfg
         cfg = copy.deepcopy(cfg)
@@ -238,7 +233,6 @@ class RPNHead(AnchorHead):
 
         bbox_pred = torch.cat(mlvl_bbox_preds)
         priors = cat_boxes(mlvl_valid_priors)
-        print("Image shape:", img_shape)
         bboxes = self.bbox_coder.decode(priors, bbox_pred, max_shape=img_shape)
 
         results = InstanceData()
