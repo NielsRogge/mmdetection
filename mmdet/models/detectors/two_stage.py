@@ -126,16 +126,16 @@ class TwoStageDetector(BaseDetector):
         ])
 
         # save file
-        torch.save(batch_inputs, "batch.pt")
+        # torch.save(batch_inputs, "batch.pt")
 
-        from huggingface_hub import HfApi
-        api = HfApi()
-        api.upload_file(
-            path_or_fileobj="batch.pt",
-            path_in_repo="batch.pt",
-            repo_id="nielsr/dit-maskrcnn",
-            repo_type="model",
-        )
+        # from huggingface_hub import HfApi
+        # api = HfApi()
+        # api.upload_file(
+        #     path_or_fileobj="batch.pt",
+        #     path_in_repo="batch.pt",
+        #     repo_id="nielsr/dit-maskrcnn",
+        #     repo_type="model",
+        # )
 
         # batch_inputs = transform(image).unsqueeze(0).to(batch_inputs.device)
 
