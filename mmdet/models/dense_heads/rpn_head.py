@@ -235,17 +235,20 @@ class RPNHead(AnchorHead):
         priors = cat_boxes(mlvl_valid_priors)
         bboxes = self.bbox_coder.decode(priors, bbox_pred, max_shape=img_shape)
 
-        print("Multilevel priors:")
-        for prior in mlvl_valid_priors:
-            print(prior.shape)
-
         print("Multilevel scores:")
         for score in mlvl_scores:
             print(score.shape)
+            print(score[:3])
 
-        print("Multilevel level ids:")
-        for level_id in level_ids:
-            print(level_id.shape)
+        print("Multilevel boxes:")
+        for bbox in mlvl_bbox_preds:
+            print(bbox.shape)
+            print(bbox[:3,:3])
+
+        print("Multilevel anchors:")
+        for prior in mlvl_valid_priors:
+            print(prior.shape)
+            print(prior[:3,:3])
 
         results = InstanceData()
         results.bboxes = bboxes
