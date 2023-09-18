@@ -307,6 +307,9 @@ class RPNHead(AnchorHead):
             if not valid_mask.all():
                 results = results[valid_mask]
 
+        print("Shape of proposals before NMS:", bboxes.shape)
+        print("Shape of scores before NMS:", results.scores.shape)
+
         if results.bboxes.numel() > 0:
             bboxes = get_box_tensor(results.bboxes)
             det_bboxes, keep_idxs = batched_nms(bboxes, results.scores,
