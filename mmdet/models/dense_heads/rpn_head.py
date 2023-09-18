@@ -307,7 +307,7 @@ class RPNHead(AnchorHead):
             if not valid_mask.all():
                 results = results[valid_mask]
 
-        print("Shape of proposals before NMS:", bboxes.shape)
+        print("Shape of proposals before NMS:", results.bboxes.shape)
         print("Shape of scores before NMS:", results.scores.shape)
 
         if results.bboxes.numel() > 0:
