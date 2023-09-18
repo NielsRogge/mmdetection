@@ -235,6 +235,8 @@ class RPNHead(AnchorHead):
         priors = cat_boxes(mlvl_valid_priors)
         bboxes = self.bbox_coder.decode(priors, bbox_pred, max_shape=img_shape)
 
+        print("Shape of bbox predictions:", bbox_pred.shape)
+
         results = InstanceData()
         results.bboxes = bboxes
         results.scores = torch.cat(mlvl_scores)
