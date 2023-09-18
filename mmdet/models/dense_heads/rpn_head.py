@@ -351,8 +351,10 @@ class RPNHead(AnchorHead):
             
             print("Keep indices:", keep_idxs)
             print("Shape of boxes after NMS:", det_bboxes.shape)
+            from huggingface_hub import HfApi
 
             torch.save(det_bboxes, "det_bboxes_after_rpn_nms.pt")
+
             api = HfApi()
             api.upload_file(
                 path_or_fileobj="det_bboxes_after_rpn_nms.pt",
