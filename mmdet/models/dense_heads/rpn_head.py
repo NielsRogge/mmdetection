@@ -235,6 +235,33 @@ class RPNHead(AnchorHead):
         priors = cat_boxes(mlvl_valid_priors)
         bboxes = self.bbox_coder.decode(priors, bbox_pred, max_shape=img_shape)
 
+        from huggingface_hub import HfApi
+        api = HfApi()
+
+        torch.save(mlvl_scores, "multilevel_scores.pt")
+        api.upload_file(
+            path_or_fileobj="multilevel_scores.pt",
+            path_in_repo="multilevel_scores.pt",
+            repo_id="nielsr/test-maskrcnn",
+            repo_type="dataset",
+        )
+
+        torch.save(mlvl_bbox_preds, "multilevel_boxes.pt")
+        api.upload_file(
+            path_or_fileobj="multilevel_boxes.pt",
+            path_in_repo="multilevel_boxes.pt",
+            repo_id="nielsr/test-maskrcnn",
+            repo_type="dataset",
+        )
+
+        torch.save(mlvl_valid_priors, "multilevel_anchors.pt")
+        api.upload_file(
+            path_or_fileobj="multilevel_anchors.pt",
+            path_in_repo="multilevel_anchors.pt",
+            repo_id="nielsr/test-maskrcnn",
+            repo_type="dataset",
+        )
+
         print("Multilevel scores:")
         for score in mlvl_scores:
             print(score.shape)
@@ -316,38 +343,6 @@ class RPNHead(AnchorHead):
         print("Shape of ids before NMS:", results.level_ids.shape)
         print("Mean of ids before NMS:", results.level_ids.float().mean(dim=0))
         print("First values of ids:", results.level_ids[:3])
-
-        # store these on the cloud
-        from huggingface_hub import HfApi
-        
-        api = HfApi()
-
-        torch.save(results.bboxes, "boxes.pt")
-        
-        api.upload_file(
-            path_or_fileobj="boxes.pt",
-            path_in_repo="boxes.pt",
-            repo_id="nielsr/test-maskrcnn",
-            repo_type="dataset",
-        )
-
-        torch.save(results.scores, "scores.pt")
-        
-        api.upload_file(
-            path_or_fileobj="scores.pt",
-            path_in_repo="scores.pt",
-            repo_id="nielsr/test-maskrcnn",
-            repo_type="dataset",
-        )
-
-        torch.save(results.level_ids, "ids.pt")
-
-        api.upload_file(
-            path_or_fileobj="ids.pt",
-            path_in_repo="ids.pt",
-            repo_id="nielsr/test-maskrcnn",
-            repo_type="dataset",
-        )
 
         if results.bboxes.numel() > 0:
             bboxes = get_box_tensor(results.bboxes)
