@@ -307,12 +307,18 @@ class RPNHead(AnchorHead):
             if not valid_mask.all():
                 results = results[valid_mask]
 
+
+
+
         print("Shape of proposals before NMS:", results.bboxes.shape)
+        print("First values of boxes:", results.bboxes[:3, :3])
         print("Mean of proposals before NMS:", results.bboxes.mean(dim=0))
         print("Shape of scores before NMS:", results.scores.shape)
+        print("First values of scores:", results.scores[:3])
         print("Mean of scores before NMS:", results.scores.mean(dim=0))
         print("Shape of ids before NMS:", results.level_ids.shape)
         print("Mean of ids before NMS:", results.level_ids.float().mean(dim=0))
+        print("First values of ids:", results.level_ids[:3])
 
         if results.bboxes.numel() > 0:
             bboxes = get_box_tensor(results.bboxes)
