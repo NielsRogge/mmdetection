@@ -314,6 +314,9 @@ class RPNHead(AnchorHead):
             bboxes = get_box_tensor(results.bboxes)
             det_bboxes, keep_idxs = batched_nms(bboxes, results.scores,
                                                 results.level_ids, cfg.nms)
+            
+            print("Shape of boxes after NMS:", det_bboxes.shape)
+
             results = results[keep_idxs]
             # some nms would reweight the score, such as softnms
             results.scores = det_bboxes[:, -1]
