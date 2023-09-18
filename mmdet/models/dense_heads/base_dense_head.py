@@ -257,15 +257,28 @@ class BaseDenseHead(BaseModule, metaclass=ABCMeta):
         num_levels = len(cls_scores)
 
         featmap_sizes = [cls_scores[i].shape[-2:] for i in range(num_levels)]
+        print("Feature map sizes:", featmap_sizes)
         mlvl_priors = self.prior_generator.grid_priors(
             featmap_sizes,
             dtype=cls_scores[0].dtype,
             device=cls_scores[0].device)
+        
+        from huggingface_hub import HfApi
+        api = HfApi()
+
+        torch.save(mlvl_priors, "multilevel_initial_priors.pt")
+        api.upload_file(
+            path_or_fileobj="multilevel_initial_priors.pt",
+            path_in_repo="multilevel_initial_priors.pt",
+            repo_id="nielsr/test-maskrcnn",
+            repo_type="dataset",
+        )
 
         result_list = []
 
         for img_id in range(len(batch_img_metas)):
             img_meta = batch_img_metas[img_id]
+            print("Image metadata:", img_meta)
             cls_score_list = select_single_mlvl(
                 cls_scores, img_id, detach=True)
             bbox_pred_list = select_single_mlvl(
