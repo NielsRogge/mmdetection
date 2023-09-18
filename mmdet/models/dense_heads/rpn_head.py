@@ -315,6 +315,7 @@ class RPNHead(AnchorHead):
             det_bboxes, keep_idxs = batched_nms(bboxes, results.scores,
                                                 results.level_ids, cfg.nms)
             
+            print("Keep indices:", keep_idxs)
             print("Shape of boxes after NMS:", det_bboxes.shape)
 
             results = results[keep_idxs]
