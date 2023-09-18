@@ -307,9 +307,6 @@ class RPNHead(AnchorHead):
             if not valid_mask.all():
                 results = results[valid_mask]
 
-
-
-
         print("Shape of proposals before NMS:", results.bboxes.shape)
         print("First values of boxes:", results.bboxes[:3, :3])
         print("Mean of proposals before NMS:", results.bboxes.mean(dim=0))
@@ -319,6 +316,38 @@ class RPNHead(AnchorHead):
         print("Shape of ids before NMS:", results.level_ids.shape)
         print("Mean of ids before NMS:", results.level_ids.float().mean(dim=0))
         print("First values of ids:", results.level_ids[:3])
+
+        # store these on the cloud
+        from huggingface_hub import HfApi
+        
+        api = HfApi()
+
+        torch.save(results.bboxes, "boxes.pt")
+        
+        api.upload_file(
+            path_or_fileobj="boxes.pt",
+            path_in_repo="boxes.pt",
+            repo_id="nielsr/test-maskrcnn",
+            repo_type="dataset",
+        )
+
+        torch.save(results.scores, "scores.pt")
+        
+        api.upload_file(
+            path_or_fileobj="scores.pt",
+            path_in_repo="scores.pt",
+            repo_id="nielsr/test-maskrcnn",
+            repo_type="dataset",
+        )
+
+        torch.save(results.level_ids, "ids.pt")
+
+        api.upload_file(
+            path_or_fileobj="ids.pt",
+            path_in_repo="ids.pt",
+            repo_id="nielsr/test-maskrcnn",
+            repo_type="dataset",
+        )
 
         if results.bboxes.numel() > 0:
             bboxes = get_box_tensor(results.bboxes)
