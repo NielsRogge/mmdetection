@@ -352,6 +352,15 @@ class RPNHead(AnchorHead):
             print("Keep indices:", keep_idxs)
             print("Shape of boxes after NMS:", det_bboxes.shape)
 
+            torch.save(det_bboxes, "det_bboxes_after_rpn_nms.pt")
+            api = HfApi()
+            api.upload_file(
+                path_or_fileobj="det_bboxes_after_rpn_nms.pt",
+                path_in_repo="det_bboxes_after_rpn_nms.pt",
+                repo_id="nielsr/test-maskrcnn",
+                repo_type="dataset",
+            )
+
             results = results[keep_idxs]
             # some nms would reweight the score, such as softnms
             results.scores = det_bboxes[:, -1]
